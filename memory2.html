@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="JS/jquery-3.1.1.js" type="text/javascript"></script>
+        
+        <link href="CSS/sheet.css" rel="stylesheet" type="text/css"/>
+        
+        <script type="text/javascript">
+            
+            function klik(event){
+                var c = $(event.target).attr('c');
+                $(event.target).css('background-color', 'blue');
+                        
+                var oo = $(event.target);
+                
+                var xx = $(event.target).attr('x');
+                var yy = $(event.target).attr('y');
+                
+                //alert( xx + "/" + yy );
+                //event.target.hide();
+//                $(event.target).toggleClass('hidden');
+        
+            }
+            
+            
+            function randOrd(){
+                return (Math.round(Math.random())-0.5);
+            }
+            
+            function init(){
+                var size = 6;   //prompt('saisissez la taille du plateau');
+                var nbpr = size*size/2;        // number of pairs
+                var pr = new Array(nbpr);      // list of colors
+                
+                // Generate list of colors
+                for(var i=0; i<nbpr; i++)
+                {
+                    pr[i] = Math.round(255 / (i+1));
+                }
+                
+                var tab = new Array(size);
+                for(st=0; st<tab.length; st++)
+                    tab[st] = new Array(size);
+                
+                // 2 fois la meme couleur sur 2 cellules adjacentes
+                var i=0;
+                for(var y=0; y<size; y+=2) {
+                    for(var x=0; x<size; x++) {
+                        tab[x][y] = pr[i];
+                        tab[x][y+1] = pr[i++];
+                    }
+                }
+                
+//                pr.sort( randOrd() );
+                
+                //tab.sort(  function() { return 0.5 - Math.random() }  );
+//                tab.sort(randOrd);
+                
+                
+/*                do { 
+                    
+                    
+                    
+                    // get random color between remainings
+                    var r =  Math.floor( Math.random() * pr.length );
+                    var c = pr[r];
+                    delete pr[r];
+                    tab[x][y] = 
+                }*/
+                    
+                //html plateau
+                for(var y=0; y<size; y++) {
+                    $('#plateau').append("<tr>");
+                    for(var x=0; x<size; x++) {
+                        
+                        $('#plateau').append("<td><input type='button' value='" + x + ", " + y + "' " 
+                            + " x=" + x + " y=" + y + " c=" + tab[x][y] + " /></td>");
+                    }
+                    $('#plateau').append("</tr>");
+                }
+                $('input').click( klik );
+            }            
+            
+            $(document).ready(init);
+        </script>
+    </head>
+    <body>
+        
+        <input type="button" value="Appel init" onclick="init();"/>
+        
+        <table id="plateau">
+            
+        </table>
+    </body>
+</html>

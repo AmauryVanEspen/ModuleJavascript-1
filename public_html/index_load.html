@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="JS/jquery-3.1.1.js" type="text/javascript"></script>
+        <script src="JS/event.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="titre" id="ida">titre</div>
+        
+        <textarea rows="8" cols="50" id="src" >
+            <div>
+                <script>
+                    alert("Yo dude !");
+                </script>
+            </div>
+        </textarea>
+        
+        <div class="menu" id="idb">
+            <span>Menu : </span>
+            <!--input type="button" value="A" onclick="$('.contenu').load('blocA.html')" /-->
+            
+            <input type="button" value="Films" onclick="clickbutton3('blocA.html');" /> 
+            <input type="button" value="Series" onclick="clickbutton3( $('#src').text() );" /> 
+            <input type="button" value="Mangas" onclick="clickbutton3('blocC.html');" /> 
+            
+            <div id="result"></div>
+        </div>
+        <div class="contenu" id="idc">contenu</div>
+        <div class="pied" id="idd">pied</div>
+    </body>
+</html>

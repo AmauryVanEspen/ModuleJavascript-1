@@ -31,3 +31,9 @@ function clickbutton2(){
     document.getElementById("titre").innerHTML = document.getElementById("texte").value.toUpperCase();
     
 }
+
+function clickbutton3(URLcible){
+    
+    //document.getElementById("result").innerHTML = URLcible;
+    $('.contenu').load(URLcible);
+}

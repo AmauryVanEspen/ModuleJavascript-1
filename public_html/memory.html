@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="CSS/sheet.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" ></script>
+    <script>
+
+    var sz = 2;			// taille coté plateau
+    var ch1 = null;		// choix #1
+    var ch2 = null;		// choix #2
+    var nbklk = 0;		// nb de coups joués
+    var found = 0; 		// nb de paires trouvées
+
+    function klik(event) {
+        nbklk++;
+        if(ch1 === null) {
+            ch1 = event.target;
+            $(ch1).attr("value", $(ch1).attr("nb"));    // Affiche valeur bouton 1
+        } else if(ch2 === null) {
+            
+            // click sur le meme bouton... ---> [ ]
+            if(event.target===ch1)  return;
+            
+            ch2 = event.target;
+            $(ch2).attr("value", $(ch2).attr("nb"));    // Affiche valeur bouton 2
+
+            // si paire trouvée lors du 2eme choix, on cache les boutons
+            if($(ch1).attr("value") === $(ch2).attr("value")) {
+                $(ch1).css("visibility", "hidden");
+                $(ch2).css("visibility", "hidden");
+
+                if(++found === sz*sz/2)
+                    alert("   Bingo !! \n\nVictoire en " + nbklk + " coups.");
+                ch1 = null;		ch2 = null;
+            }
+        } else {
+            $(ch1).attr("value", "");        $(ch2).attr("value", "");
+
+            ch1 = event.target;
+            $(ch1).attr("value", $(ch1).attr("nb"));
+            ch2 = null;
+        };
+    };
+
+    function showGrid() {
+        var tb = $("#tb");
+        var s = "";
+        var val = [ ];
+
+/*        do {
+            sz = prompt("Taille du plateau");
+        } while (sz % 2 != 0);
+*/
+sz=2;
+        nbklk = 0;
+        found = 0; 
+
+        for(var i=0; i<sz*sz/2; i++)
+        {
+            val.push(i);        val.push(i);
+        }
+        val.sort( function () { return ( Math.round(Math.random())-0.5 ); } );
+
+        for(var y=0; y<sz; y++) {
+            s += "<tr>";
+            for(var x=0; x<sz; x++) 
+                s += "<td><input type='button' class='bt1' nb='" + val.pop() + "' /></td>";
+            s += "</tr>";
+        }
+        tb.html(s);
+
+        $(".bt1").click( klik );
+    };
+    
+    $(document).ready(  showGrid );
+
+    </script>
+</head>
+
+<body>
+
+<table><tbody id="tb">
+</tbody></table>
+
+<br>
+
+<input type='button' value='Banzai !!!' onclick='showGrid();' />
+
+</body>
+</html>
